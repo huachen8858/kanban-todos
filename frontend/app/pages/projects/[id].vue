@@ -17,6 +17,23 @@ const projectLoading = ref(true)
 const showCreateModal = ref(false)
 const updatingTaskId = ref<number | null>(null)
 
+const filter = ref({ search: '', priority: '', showOverdue: false })
+
+const filteredTasks = computed(() => {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  return tasks.value.filter(task => {
+    if (filter.value.search &&
+        !task.title.toLowerCase().includes(filter.value.search.toLowerCase())) return false
+    if (filter.value.priority && task.priority !== filter.value.priority) return false
+    if (filter.value.showOverdue) {
+      if (!task.dueDate || task.status === 'Done') return false
+      if (new Date(task.dueDate) >= today) return false
+    }
+    return true
+  })
+})
+
 onMounted(async () => {
   const [projectRes] = await Promise.allSettled([
     api.get<ApiResponse<Project>>(`/projects/${projectId}`),
@@ -86,12 +103,14 @@ function handleTaskCreated() {
 
       <p v-else-if="error" class="text-red-500">{{ error }}</p>
 
-      <KanbanBoard
-        v-else
-        :tasks="tasks"
-        :updating-task-id="updatingTaskId"
-        @status-change="handleStatusChange"
-      />
+      <template v-else>
+        <TaskFilter v-model="filter" />
+        <KanbanBoard
+          :tasks="filteredTasks"
+          :updating-task-id="updatingTaskId"
+          @status-change="handleStatusChange"
+        />
+      </template>
     </main>
 
     <CreateTaskModal

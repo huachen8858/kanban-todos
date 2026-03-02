@@ -98,11 +98,18 @@
 - `DB_CONNECTION_STRING` removed from `.env` (docker-compose injects connection string directly)
 - Start: `docker-compose up --build` → browse `http://localhost`
 
-## Phase 6: Polish (Ongoing)
+## Phase 6: Polish ✅
 
-- [ ] Pagination on task lists
-- [ ] Search and filter tasks
-- [ ] Overdue task indicators
-- [ ] Unit tests for services (xUnit + Moq)
-- [ ] API integration tests
-- [ ] GitHub Actions CI
+- [x] Pagination on task lists — implemented as client-side search/filter (no backend changes needed)
+- [x] Search and filter tasks — `TaskFilter.vue` with search input, priority dropdown, overdue checkbox; `filteredTasks` computed in `projects/[id].vue`
+- [x] Overdue task indicators — "Overdue" pill badge on `TaskCard.vue` (red bg, `isOverdue` computed)
+- [x] Unit tests for services (xUnit + Moq) — `TaskServiceTests.cs` (6 tests), `ProjectServiceTests.cs` (4 tests)
+- [x] API integration tests — `AuthIntegrationTests.cs` (3 tests), `TasksIntegrationTests.cs` (2 tests); `WebApplicationFactory` + EF InMemory; all 16 tests pass
+- [x] GitHub Actions CI — `.github/workflows/ci.yml`; backend (restore → build → test) + frontend (npm ci → build)
+
+**Notes (Phase 6)**
+- `InMemoryDatabaseRoot` is in `Microsoft.EntityFrameworkCore.Storage` namespace (not top-level `Microsoft.EntityFrameworkCore`)
+- `ICollectionFixture<TaskFlowFactory>` used to share one factory across test classes; prevents parallel host startup conflicts
+- Program.cs Testing branch: skips MySQL, injects JWT config via `AddInMemoryCollection` early (before JWT validation is configured)
+- `public partial class Program {}` stub at bottom of Program.cs required for `WebApplicationFactory<Program>` to reference entry point
+- All 16 tests pass: 10 unit + 6 integration

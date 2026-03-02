@@ -23,11 +23,24 @@ try
         config.ReadFrom.Configuration(context.Configuration)
               .WriteTo.Console());
 
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-        ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    if (builder.Environment.IsEnvironment("Testing"))
+    {
+        builder.Configuration.AddInMemoryCollection(new Dictionary<string, string?>
+        {
+            ["Jwt:Secret"]        = "testing-jwt-secret-must-be-at-least-32chars!!",
+            ["Jwt:Issuer"]        = "TaskFlow",
+            ["Jwt:Audience"]      = "TaskFlowUsers",
+            ["Jwt:ExpiryMinutes"] = "60",
+        });
+    }
+    else
+    {
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+            ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-    builder.Services.AddDbContext<TaskFlowDbContext>(options =>
-        options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+        builder.Services.AddDbContext<TaskFlowDbContext>(options =>
+            options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+    }
 
     var jwtSecret = builder.Configuration["Jwt:Secret"]
         ?? throw new InvalidOperationException("Jwt:Secret is not configured.");
@@ -135,3 +148,5 @@ finally
 {
     Log.CloseAndFlush();
 }
+
+public partial class Program { }

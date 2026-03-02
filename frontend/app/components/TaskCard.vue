@@ -37,12 +37,16 @@ const isOverdue = computed(() => {
         {{ task.priority }}
       </span>
     </div>
-    <p
-      v-if="formattedDueDate"
-      class="text-xs mt-1"
-      :class="isOverdue ? 'text-red-500' : 'text-gray-400'"
-    >
-      Due {{ formattedDueDate }}
-    </p>
+    <div v-if="formattedDueDate" class="flex items-center gap-1.5 mt-1">
+      <p class="text-xs" :class="isOverdue ? 'text-red-500' : 'text-gray-400'">
+        Due {{ formattedDueDate }}
+      </p>
+      <span
+        v-if="isOverdue"
+        class="text-xs font-medium px-1.5 py-0.5 rounded-full bg-red-100 text-red-700"
+      >
+        Overdue
+      </span>
+    </div>
   </div>
 </template>
