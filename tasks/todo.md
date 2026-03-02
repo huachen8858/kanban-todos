@@ -85,7 +85,7 @@
 - [x] Add .NET backend service to `docker-compose.yml`
 - [x] Configure CORS on .NET API
 - [x] Write README.md with setup instructions
-- [ ] End-to-end test: `docker-compose up --build` — *manual verification step*
+- [x] End-to-end test: `docker-compose up --build` — *manual verification step*
 
 **Notes (Phase 5)**
 - Backend Dockerfile: multi-stage `sdk:9.0` → `aspnet:9.0`; context is `./backend`
