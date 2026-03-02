@@ -1,0 +1,16 @@
+# Environment secrets
+.env
+
+# .NET build artifacts
+backend/**/bin/
+backend/**/obj/
+backend/**/*.user
+
+# Nuxt / Node
+frontend/.nuxt/
+frontend/.output/
+frontend/node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
