@@ -3,6 +3,7 @@
 A full-stack task management system with a Kanban board UI.
 
 **Stack**: .NET 9 Web API · Nuxt 4 · MySQL 8 · Nginx · Docker
+**AI Tool**: Claude Code
 
 ---
 
