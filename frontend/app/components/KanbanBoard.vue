@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { VueDraggable } from 'vue-draggable-plus'
+import type { DraggableEvent } from 'vue-draggable-plus'
 import type { Task } from '~/types'
 
 const props = defineProps<{
@@ -38,10 +39,9 @@ watch(
   { immediate: true, deep: true }
 )
 
-function onEnd(event: { item: HTMLElement }, targetStatus: string) {
-  const taskId = Number(event.item.dataset.taskId)
-  if (!taskId) return
-  emit('statusChange', taskId, targetStatus)
+function onAdd(event: DraggableEvent<Task>, targetStatus: string) {
+  if (!event.data?.id) return
+  emit('statusChange', event.data.id, targetStatus)
 }
 </script>
 
@@ -64,7 +64,7 @@ function onEnd(event: { item: HTMLElement }, targetStatus: string) {
         v-model="columnTasks[col.status]"
         group="tasks"
         class="min-h-12 space-y-2"
-        @end="(e) => onEnd(e, col.status)"
+        @add="(e) => onAdd(e, col.status)"
       >
         <div
           v-for="task in columnTasks[col.status]"

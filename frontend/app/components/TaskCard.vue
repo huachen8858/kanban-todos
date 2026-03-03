@@ -26,6 +26,7 @@ const isOverdue = computed(() => {
       <NuxtLink
         :to="`/tasks/${task.id}`"
         class="text-sm font-medium text-gray-800 hover:text-blue-600 leading-snug"
+        draggable="false"
         @click.stop
       >
         {{ task.title }}
