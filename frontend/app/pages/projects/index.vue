@@ -170,9 +170,9 @@ async function handleDeleteProject() {
         <div
           v-for="project in projects"
           :key="project.id"
-          class="bg-white rounded-xl border border-gray-200 hover:border-gray-300 transition-all"
+          class="bg-white rounded-xl border border-gray-200 hover:border-gray-300 transition-all flex flex-col"
         >
-          <NuxtLink :to="`/projects/${project.id}`" class="block p-5 group">
+          <NuxtLink :to="`/projects/${project.id}`" class="flex-1 block p-5 group">
             <div class="flex items-start justify-between gap-2 mb-3">
               <div class="flex items-center gap-3 min-w-0">
                 <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
