@@ -154,3 +154,11 @@ JWT_SECRET=your-256-bit-secret-placeholder-change-me
 
 NUXT_PUBLIC_API_BASE=http://localhost/api/v1
 ```
+
+---
+
+## Project UI
+<img width="1433" height="761" alt="image" src="https://github.com/user-attachments/assets/c13dca3f-025a-4a76-9455-79faf499c64a" />
+<img width="1434" height="773" alt="image" src="https://github.com/user-attachments/assets/9c04ffa9-6d02-4f52-a016-2ff5ace1837e" />
+<img width="1434" height="766" alt="image" src="https://github.com/user-attachments/assets/97265c06-6c63-47f7-9f3d-63537a72e409" />
+<img width="1434" height="772" alt="image" src="https://github.com/user-attachments/assets/cdaf83a5-e5b2-4145-a389-102c7aac8edb" />
